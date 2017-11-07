@@ -1,6 +1,33 @@
-angular.module('scotchTodo', ['todoController', 'todoService']);
+// Create the module
+// The ngRoute module helps your application to become a Single Page Application.
+// referring to: https://www.w3schools.com/angular/angular_routing.asp
+var meanApp = angular.module('meanApp', ['ngRoute']);
 
-angular.module('objectBuilder', ['objectController', 'objectService']);
+
+
+// configure the routes
+meanApp.config(function ($routeProvider) {
+    $routeProvider
+
+        .when('/', {
+            templateUrl: "pages/home.html",
+            controller: 'testController'
+        })
+        .when('/objects', {
+            templateUrl: "pages/objects.html",
+            controller: 'objectController'
+        })
+});
+
+
+
+meanApp.controller("testController", function ($scope) {
+    $scope.message = "hello from testController";
+});
+
+//angular.module('scotchTodo', ['todoController', 'todoService']);
+//angular.module('objectBuilder', ['objectController', 'objectService']);
+
 
 //
 //

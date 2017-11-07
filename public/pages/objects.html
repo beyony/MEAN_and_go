@@ -1,0 +1,27 @@
+<div class="jumbotron text-center">
+    <h1>Objects Page</h1>
+
+    <p>{{ message }}</p>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="text-align: center;">Name</th>
+            <th style="text-align: center;">Description</th>
+            <th style="text-align: center;">Category</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="object in objects">
+            <td>{{object.name}}</td>
+            <td>{{object.description}}</td>
+            <td>{{object.category}}</td>
+            <td><span style="cursor: pointer;" class="badge">Delete</span></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
