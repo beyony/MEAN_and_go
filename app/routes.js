@@ -28,15 +28,16 @@ module.exports = function (app) {
 
 
 
-    //ADD
+    // ADD
     app.get('/api/objects', function (req, res) {
         getObjects(res);
     });
 
+    // CREATE
     app.post('/api/objects', function (req, res) {
-
         Object.create({
-            name: req.body.name
+            name: req.body.name,
+            description: req.body.description
         }, function (err, object) {
             if (err)
                 res.send(err);
@@ -44,7 +45,18 @@ module.exports = function (app) {
             // get and return all the todos after you create another
             getObjects(res);
         });
+    });
 
+    // DELETE
+    app.delete('/api/objects/:object_id', function (req, res) {
+        Object.remove({
+            _id: req.params.object_id
+        }, function (err, object) {
+            if (err)
+                res.send(err);
+
+            getObjects(res);
+        });
     });
 
 

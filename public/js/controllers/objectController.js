@@ -1,18 +1,7 @@
-meanApp.controller("objectController", ['$scope', '$http', function ($scope, $http) {
+meanApp.controller("objectController", ['$scope', '$http', 'sharedService', 'Objects', function ($scope, $http, sharedService, Objects) {
 
-    // Service ->>>
-    var Objects = {
-        get: function () {
-            return $http.get('/api/objects');
-        },
-        create: function (todoData) {
-            return $http.post('/api/objects', todoData);
-        },
-        delete: function (id) {
-            return $http.delete('/api/objects/' + id);
-        }
-    };
-    // <<<<- Service
+    // Progress Settings
+    sharedService.setHasProgress(false);
 
 
     $scope.message = "hello from objectController";
@@ -25,22 +14,14 @@ meanApp.controller("objectController", ['$scope', '$http', function ($scope, $ht
         });
 
 
-/*    $scope.createObject = function () {
-        console.log($scope.formData);
-        Objects.create($scope.formData)
-            .success(function (objects) {
-                console.log(objects);
-                $scope.formData = {};
-                $scope.objects = objects;
-            });
-    };
-
     $scope.deleteObject = function (id) {
         Objects.delete(id)
             .success(function (data) {
-                $scope.objetcs = data;
+                console.log("data coming in: ");
+                console.log(data);
+                $scope.objects = data;
             })
-    };*/
+    };
 
 
 }]);
