@@ -1,34 +1,50 @@
-var Todo = require('./models/todo');
 var Object = require('./models/object');
+var Category = require('./models/category');
+var ObjectDetails = require('./models/objectDetails');
 
-//ADD
+
 function getObjects(res) {
-    Object.find(function(err, objects) {
-       if(err) {
-
-       } else {
-           res.json(objects);
-       }
-    });
+    Object.find()
+        .populate({path: 'category', select: 'name'})
+        .exec(function (err, objects) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json(objects);
+            }
+        });
 }
-
-function getTodos(res) {
-    Todo.find(function (err, todos) {
-
-        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        if (err) {
-            res.send(err);
-        }
-
-        res.json(todos); // return all todos in JSON format
-    });
-};
 
 module.exports = function (app) {
 
 
+    ///api/objectDetails
+    app.post('/api/objectDetails', function (req, res) {
+        console.log(req.body);
+        ObjectDetails.create({
+            sizeX: req.body.sizeX,
+            sizeY: req.body.sizeY,
+            sizeZ: req.body.sizeZ,
+            object: req.body.object_id
+        }, function (err, objectDetail) {
+            console.log(err);
+            console.log(objectDetail);
+        });
+    });
 
-    // ADD
+    // READ
+    app.get('/api/categories', function (req, res) {
+        Category.find(function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json(data);
+            }
+        });
+    });
+
+
+    // READ
     app.get('/api/objects', function (req, res) {
         getObjects(res);
     });
@@ -37,7 +53,8 @@ module.exports = function (app) {
     app.post('/api/objects', function (req, res) {
         Object.create({
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            category: req.body.category._id
         }, function (err, object) {
             if (err)
                 res.send(err);
@@ -60,54 +77,10 @@ module.exports = function (app) {
     });
 
 
-    // api ---------------------------------------------------------------------
-    // get all todos
-    app.get('/api/todos', function (req, res) {
-        // use mongoose to get all todos in the database
-
-        getTodos(res);
-    });
-
-    // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
-
-        // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            done: false
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            // get and return all the todos after you create another
-            getTodos(res);
-        });
-
-    });
-
-    // delete a todo
-    app.delete('/api/todos/:todo_id', function (req, res) {
-        Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            getTodos(res);
-        });
-    });
-
-
-
-
-
-
-
-
-
-    // application -------------------------------------------------------------
+    // application : AT LAST! -------------------------------------------------------------
     app.get('*', function (req, res) {
         console.log(__dirname);
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
+
 };

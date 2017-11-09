@@ -1,17 +1,14 @@
-<div class="jumbotron text-center objects">
+<div class="jumbotron text-center objectsTemplate">
     <a href="#objectEdit" class="addPanel"><span style="cursor: pointer;" class="fa fa-plus-square" ng-click=""></span></a>
     <h1>Objects Page</h1>
-
-
-    <p>{{ message }}</p>
 
 
     <table class="table">
         <thead>
         <tr>
-            <th style="text-align: center;">Name</th>
-            <th style="text-align: center;">Description</th>
-            <th style="text-align: center;">Category</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
             <th></th>
         </tr>
         </thead>
@@ -19,11 +16,10 @@
         <tr ng-repeat="object in objects">
             <td>{{object.name}}</td>
             <td>{{object.description}}</td>
-            <td>{{object.category}}</td>
+            <td>{{object.category.name}}</td>
             <td><span style="cursor: pointer;" class="badge" ng-click="deleteObject(object._id)">Delete</span></td>
         </tr>
         </tbody>
     </table>
-
 
 </div>

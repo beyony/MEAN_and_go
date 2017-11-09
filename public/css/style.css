@@ -3,15 +3,19 @@ body {
 
 }
 
-.objects {
+.objectsTemplate {
     position: relative;
 }
 
-.objects > .addPanel {
+.objectsTemplate > .addPanel {
     position: absolute;
     right: 5%;
     top: 5%;
     font-size: 400%;
+}
+
+.objectsTemplate > .table thead>tr>th {
+    text-align: center;
 }
 
 

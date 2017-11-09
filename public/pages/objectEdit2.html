@@ -1,20 +1,24 @@
-<div id="CanvasHere" class=" text-center" ng-init="initThree('CanvasHere')">
+<div class="text-center">
+    <div id="CanvasHere" ng-init="initThree('CanvasHere')">
 
-    <div class="objectPanel">
+        <div><h1> {{currentObject.name}} </h1></div>
 
-        <div class="panelHeader">
-            <h2></h2>
+        <div class="objectPanel">
+            <div class="panelHeader">
+                <h2></h2>
+            </div>
+            <p>X = <span ng-bind="panel.scaleX"></span></p>
+            <input type="range" ng-model="panel.scaleX">
+            <p>Y = <span ng-bind="panel.scaleY"></span></p>
+            <input type="range" ng-model="panel.scaleY">
+            <p>Z = <span ng-bind="panel.scaleZ"></span></p>
+            <input type="range" ng-model="panel.scaleZ">
         </div>
-
-
-
-        <p>X</p>
-        <input type="range" ng-model="panel.scaleX">
-        <p>Y</p>
-        <input type="range" ng-model="panel.scaleY">
-        <p>Z</p>
-        <input type="range" ng-model="panel.scaleZ">
 
     </div>
 
+
+    <a>
+        <button type="submit" style="position:absolute;" class="btn btn-primary" ng-click="save3D()">Next step</button>
+    </a>
 </div>

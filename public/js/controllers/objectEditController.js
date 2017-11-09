@@ -1,51 +1,32 @@
-meanApp.controller("objectEditController", ['$scope', '$http', 'sharedService', 'Objects', function ($scope, $http, sharedService, Objects) {
+meanApp.controller("objectEditController", ['$scope', '$http', '$window', 'sharedService', 'Objects', function ($scope, $http, $window, sharedService, Objects) {
 
     sharedService.setHasProgress(true);
     sharedService.setProgressStep(1, 3);
 
-    var currentObject = {};
-
 
     $scope.createObject = function () {
+        console.log('$scope.formData');
         console.log($scope.formData);
+        $scope.formData.category = $scope.selected; //???
+        console.log($scope);
+
         Objects.create($scope.formData)
             .success(function (objects) {
                 $scope.formData = {};
-                sharedService.setProgressStep(2, 3);
+                sharedService.currentObject = objects[objects.length - 1];
+                $window.location.href = '#objectEdit2';
             });
     };
 
 
-    // THREE  ACTIONS
 
-    var cube;
+    $http.get('/api/categories').success(function (data) {
+        console.log(data);
+        $scope.categories = data;
+    });
 
-    $scope.initThree = function (accessor) {
-        console.log(accessor);
-        cube = initPreview(accessor);
 
-        cube.scale.x = 20;
-        cube.scale.y = 14;
-        cube.scale.z = 0.1;
-    };
 
-    function updateCube() {
-        cube.scale.x = Math.max($scope.panel.scaleX, 0.1);
-        cube.scale.y = Math.max($scope.panel.scaleY, 0.1);
-        cube.scale.z = Math.max($scope.panel.scaleZ, 0.1);
-    };
-
-    // Panel Control  ---->
-
-    $scope.panel = {
-        scaleX: 20,
-        scaleY: 14,
-        scaleZ: 0.1
-    };
-
-    $scope.$watch('panel', function (newValue, oldValue) {
-        updateCube();
-    }, true);
 
 
 }]);

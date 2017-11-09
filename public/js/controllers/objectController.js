@@ -4,8 +4,6 @@ meanApp.controller("objectController", ['$scope', '$http', 'sharedService', 'Obj
     sharedService.setHasProgress(false);
 
 
-    $scope.message = "hello from objectController";
-
     Objects.get()
         .success(function (data) {
             $scope.objects = data;

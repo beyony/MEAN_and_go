@@ -20,9 +20,9 @@
 
         <div class="form-group col-md-6">
             <label for="inputState">Category</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <!--<select ng-options="item as item.label for item in items track by item.id" ng-model="selected" id="inputState" class="form-control">-->
+            <!--</select>-->
+            <select ng-options="category as category.name for category in categories track by category._id" ng-model="selected" id="inputState" class="form-control">
             </select>
         </div>
         <div class="form-row">
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <a href="#objectEdit2"><button type="submit" class="btn btn-primary" ng-click="createObject()">Next step</button></a>
+        <a><button type="submit" class="btn btn-primary" ng-click="createObject()">Next step</button></a>
     </form>
 
 

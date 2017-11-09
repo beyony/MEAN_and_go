@@ -4,14 +4,17 @@
 var meanApp = angular.module('meanApp', ['ngRoute']);
 
 
+
 // super simple service
 meanApp.factory('Objects', ['$http', function ($http) {
     return {
         get: function () {
             return $http.get('/api/objects');
         },
-        create: function (todoData) {
-            return $http.post('/api/objects', todoData);
+        create: function (objectData) {
+            console.log("CREATE: ");
+            console.log(objectData);
+            return $http.post('/api/objects', objectData);
         },
         delete: function (id) {
             return $http.delete('/api/objects/' + id);
@@ -19,10 +22,31 @@ meanApp.factory('Objects', ['$http', function ($http) {
     }
 }]);
 
+// super simple service
+meanApp.factory('ObjectDetails', ['$http', function($http) {
+    return {
+        get : function(id) {
+            return $http.get('/api/objectDetails/' + id);
+        },
+        create : function(detailsData) {
+            console.log("detailsData");
+            console.log(detailsData);
+            return $http.post('/api/objectDetails', detailsData);
+        },
+        delete : function(id) {
+            return $http.delete('/api/objectDetails/' + id);
+        }
+    }
+}]);
 
 // shared service for progress bar in nav region
 meanApp.factory('sharedService', function ($rootScope) {
+
+    console.log("sharedService instantiated!");
+
     var sharedService = {};
+
+    sharedService.currentObject = {};
 
     sharedService.message = 'Hello from sharedService (initial)';
     sharedService.hasProgress = false;
@@ -38,6 +62,27 @@ meanApp.factory('sharedService', function ($rootScope) {
 
     return sharedService;
 });
+
+
+
+meanApp.controller("mainController", ['$scope', 'sharedService', function ($scope, sharedService) {
+    $scope.message = "hello from testController";
+
+    sharedService.setHasProgress(false);
+
+
+    $scope.$on('handleProgressUpdate', function () {
+        console.log("handleProgressUpdate");
+        $scope.progress = "Step " + sharedService.message;
+    });
+    $scope.$on('handleSetHasProgress', function () {
+        console.log("handleSetHasProgress");
+        $scope.hasProgress = sharedService.hasProgress;
+    });
+
+}]);
+
+
 
 
 // configure the routes
@@ -58,27 +103,13 @@ meanApp.config(function ($routeProvider) {
         })
         .when('/objectEdit2', {
             templateUrl: "pages/objectEdit2.html",
-            controller: 'objectEditController'
+            controller: 'objectEditController2'
+        })
+        .when('/objectEdit3', {
+            templateUrl: "pages/objectEdit3.html",
+            controller: 'objectEditController3'
         });
 });
-
-
-meanApp.controller("mainController", ['$scope', 'sharedService', function ($scope, sharedService) {
-    $scope.message = "hello from testController";
-
-    sharedService.setHasProgress(false);
-
-
-    $scope.$on('handleProgressUpdate', function () {
-        console.log("handleProgressUpdate");
-        $scope.progress = "Step " + sharedService.message;
-    });
-    $scope.$on('handleSetHasProgress', function () {
-        console.log("handleSetHasProgress");
-        $scope.hasProgress = sharedService.hasProgress;
-    });
-
-}]);
 
 //angular.module('scotchTodo', ['todoController', 'todoService']);
 //angular.module('objectBuilder', ['objectController', 'objectService']);

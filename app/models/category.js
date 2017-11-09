@@ -13,5 +13,6 @@ module.exports = mongoose.model('Category', new Schema({
     iconUrl: {
         type: String,
         default: ''
-    }
+    },
+    objects : [{ type: Schema.Types.ObjectId, ref: 'Object' }]
 }));

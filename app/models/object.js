@@ -15,7 +15,11 @@ module.exports = mongoose.model('Object', new Schema({
         default: ''
     },
     category: {
-        type: Schema.ObjectId,
-        ref: 'category'
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+    },
+    objectDetails: {
+        type: Schema.Types.ObjectId,
+        ref: 'ObjectDetails'
     }
 }));
