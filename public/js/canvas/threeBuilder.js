@@ -1,10 +1,10 @@
 function initPreview(accessor, sizeX, sizeY, sizeZ) {
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f0f0);
+    scene.background = new THREE.Color("#222");
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
     var renderer = new THREE.WebGLRenderer();
-    //renderer.setSize(window.innerWidth, window.innerHeight);
 
     var container = document.getElementById(accessor);
     console.log(container.offsetWidth);
@@ -26,13 +26,15 @@ function initPreview(accessor, sizeX, sizeY, sizeZ) {
 
 
 // alternating textures
-    var frontSideMaterial = new THREE.MeshBasicMaterial({
+    var frontSideMaterial = new THREE.MeshPhongMaterial({
         map: textureFront
     });
-    var backSideMaterial = new THREE.MeshBasicMaterial({
+
+
+    var backSideMaterial = new THREE.MeshPhongMaterial({
         map: textureBack
     });
-    var borderMaterial = new THREE.MeshBasicMaterial({
+    var borderMaterial = new THREE.MeshPhongMaterial({
         color: 0x000000
     });
 
@@ -50,11 +52,33 @@ function initPreview(accessor, sizeX, sizeY, sizeZ) {
     var cube = new THREE.Mesh(geometry, materials);
     scene.add(cube);
 
+    var light = buildLights(scene);
+    buildLights(scene).position = {x: -50, y: -10, z: -50};
+
 
 // set camera pos
     camera.position.z = 20;
 
 
+    function buildLights(scene) {
+        var light = new THREE.PointLight("#fff", 1, 150);
+        light.position.x = 20;
+        light.position.y = -20;
+        light.position.z = 20;
+
+        // light.angle = 1.05;
+        //
+        // light.decacy = 2;
+        // light.penumbra = 1;
+
+        // light.shadow.camera.near = 10;
+        // light.shadow.camera.far = 1000;
+        // light.shadow.camera.fov = 30;
+
+        scene.add(light);
+
+        return light;
+    }
 
 
 // now: magic!
@@ -66,7 +90,6 @@ function initPreview(accessor, sizeX, sizeY, sizeZ) {
 
         renderer.render(scene, camera);
     }
-
 
 
     animate();
