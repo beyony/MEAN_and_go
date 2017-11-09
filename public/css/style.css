@@ -1,7 +1,38 @@
 
+.ng-scope {
+    overflow: hidden;
+}
+
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+
+}
+
 body {
     background-color: #222;
 }
+
+
+#CanvasHere {
+    height: 100%;
+    width: 100%;
+    background-color: #4e1c00;
+}
+
+#canvas {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    background: aquamarine;
+}
+
 
 .jumbotron {
     color: #888;
@@ -28,8 +59,8 @@ a:hover {
 .form-control:focus {
     border-color: #a64700;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(163, 58, 0, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(163, 58, 0, 0.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(163, 58, 0, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(163, 58, 0, 0.6);
 }
 
 .btn-primary {
@@ -67,17 +98,13 @@ a:hover {
     text-align: center;
 }
 
-#CanvasHere {
-    padding: 0;
-    height: 600px;
-    position: relative;
-}
-
 .objectPanel {
     position: absolute;
     background: rgba(0, 0, 0, 0.81);
     opacity: 1;
-    height: 100%;
+    height: 80%;
+    top: 13%;
+    z-index: 11123;
     min-width: 20%;
     max-width: 50%;
     color: #a64806;

@@ -1,4 +1,4 @@
-meanApp.controller("objectController", ['$scope', '$http', 'sharedService', 'Objects', function ($scope, $http, sharedService, Objects) {
+meanApp.controller("objectController", ['$scope', '$http', '$window', 'sharedService', 'Objects', function ($scope, $http, $window, sharedService, Objects) {
 
     // Progress Settings
     sharedService.setHasProgress(false);
@@ -19,6 +19,11 @@ meanApp.controller("objectController", ['$scope', '$http', 'sharedService', 'Obj
                 console.log(data);
                 $scope.objects = data;
             })
+    };
+
+    $scope.editObject = function(object) {
+        sharedService.currentObject = object;
+        $window.location.href = '#objectEdit2';
     };
 
 

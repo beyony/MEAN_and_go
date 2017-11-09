@@ -17,7 +17,10 @@
             <td>{{object.name}}</td>
             <td>{{object.description}}</td>
             <td>{{object.category.name}}</td>
-            <td><span style="cursor: pointer;" class="badge" ng-click="deleteObject(object._id)">Delete</span></td>
+            <td>
+                <span style="cursor: pointer;" class="badge" ng-click="deleteObject(object._id)">Delete</span>
+                <span style="cursor: pointer;" class="badge" ng-click="editObject(object)">Edit</span>
+            </td>
         </tr>
         </tbody>
     </table>

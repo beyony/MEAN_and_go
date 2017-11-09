@@ -15,7 +15,19 @@ function getObjects(res) {
         });
 }
 
+
 module.exports = function (app) {
+    app.get('/api/objectDetails/getForObject/:object_id', function (req, res) {
+        ObjectDetails.find({object: req.params.object_id}, function (err, data) {
+            if (err) {
+                //console.log(err);
+            } else {
+                if (data && data.length > 0) {
+                    res.json(data[data.length - 1]);
+                }
+            }
+        });
+    });
 
 
     ///api/objectDetails
@@ -27,11 +39,16 @@ module.exports = function (app) {
             sizeZ: req.body.sizeZ,
             object: req.body.object_id
         }, function (err, objectDetail) {
-            console.log(err);
-            console.log(objectDetail);
+            if (err) {
+                console.log(err);
+            } else {
+                Object.update(
+                    {_id: req.body.object_id},
+                    {objectDetails: objectDetail._id}
+                );
+            }
         });
     });
-
     // READ
     app.get('/api/categories', function (req, res) {
         Category.find(function (err, data) {

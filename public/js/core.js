@@ -4,7 +4,6 @@
 var meanApp = angular.module('meanApp', ['ngRoute']);
 
 
-
 // super simple service
 meanApp.factory('Objects', ['$http', function ($http) {
     return {
@@ -23,18 +22,19 @@ meanApp.factory('Objects', ['$http', function ($http) {
 }]);
 
 // super simple service
-meanApp.factory('ObjectDetails', ['$http', function($http) {
+meanApp.factory('ObjectDetails', ['$http', function ($http) {
     return {
-        get : function(id) {
-            return $http.get('/api/objectDetails/' + id);
+        get: function () {
+            return $http.get('/api/objectDetails/');
         },
-        create : function(detailsData) {
-            console.log("detailsData");
-            console.log(detailsData);
+        create: function (detailsData) {
             return $http.post('/api/objectDetails', detailsData);
         },
-        delete : function(id) {
+        delete: function (id) {
             return $http.delete('/api/objectDetails/' + id);
+        },
+        getForObject: function (id) {
+            return $http.get('/api/objectDetails/getForObject/' + id);
         }
     }
 }]);
@@ -64,7 +64,6 @@ meanApp.factory('sharedService', function ($rootScope) {
 });
 
 
-
 meanApp.controller("mainController", ['$scope', 'sharedService', function ($scope, sharedService) {
     $scope.message = "hello from testController";
 
@@ -81,8 +80,6 @@ meanApp.controller("mainController", ['$scope', 'sharedService', function ($scop
     });
 
 }]);
-
-
 
 
 // configure the routes

@@ -5,14 +5,10 @@ meanApp.controller("objectEditController", ['$scope', '$http', '$window', 'share
 
 
     $scope.createObject = function () {
-        console.log('$scope.formData');
-        console.log($scope.formData);
-        $scope.formData.category = $scope.selected; //???
-        console.log($scope);
+        $scope.formData.category = $scope.selected;
 
         Objects.create($scope.formData)
             .success(function (objects) {
-                $scope.formData = {};
                 sharedService.currentObject = objects[objects.length - 1];
                 $window.location.href = '#objectEdit2';
             });
@@ -21,7 +17,6 @@ meanApp.controller("objectEditController", ['$scope', '$http', '$window', 'share
 
 
     $http.get('/api/categories').success(function (data) {
-        console.log(data);
         $scope.categories = data;
     });
 
