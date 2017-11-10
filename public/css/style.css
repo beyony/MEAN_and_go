@@ -30,7 +30,7 @@ body {
     top: 0;
     left: 0;
     z-index: 6;
-    background: aquamarine;
+    background: none;
 }
 
 
@@ -105,7 +105,7 @@ a:hover {
     height: 80%;
     top: 13%;
     z-index: 11123;
-    min-width: 20%;
+    min-width: 15%;
     max-width: 50%;
     color: #a64806;
     border-radius: 45px 10px 10px 45px;

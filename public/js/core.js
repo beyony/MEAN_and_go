@@ -46,7 +46,7 @@ meanApp.factory('sharedService', function ($rootScope) {
 
     var sharedService = {};
 
-    sharedService.currentObject = {};
+    sharedService.currentObject = null;
 
     sharedService.message = 'Hello from sharedService (initial)';
     sharedService.hasProgress = false;
@@ -105,7 +105,8 @@ meanApp.config(function ($routeProvider) {
         .when('/objectEdit3', {
             templateUrl: "pages/objectEdit3.html",
             controller: 'objectEditController3'
-        });
+        }).when('/collapse1', {
+    });
 });
 
 //angular.module('scotchTodo', ['todoController', 'todoService']);

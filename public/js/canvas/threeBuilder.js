@@ -24,6 +24,7 @@ function initPreview(accessor, container) {
     }
 
 
+
     function Scene(canvas) {
         canvas.width = document.body.clientWidth;
         canvas.height = document.body.clientHeight;
@@ -38,14 +39,16 @@ function initPreview(accessor, container) {
         scene.background = new THREE.Color("#202020");
 
         var light = buildLights(scene, 0);
-        var light2 = buildLights(scene, 100);
         var camera = buildCamera(width, height);
         var renderer = buildRender(width, height);
         var mesh = addObjects(scene);
 
+
+
         function buildLights(scene, offset) {
             var light = new THREE.SpotLight("#fff", 0.8);
             light.position.y = 100 - offset;
+            light.position.x = 200; //Math.sin(time * 0.01) * 200;
 
             light.angle = 1.05;
 
@@ -91,7 +94,7 @@ function initPreview(accessor, container) {
 
         function addObjects(scene) {
             //var geometry = new THREE.SphereGeometry(30, 64, 64);
-            var geometry = new THREE.CubeGeometry(64, 64, 1);
+            var geometry = new THREE.CubeGeometry(1, 1, 1);
             var material = new THREE.MeshStandardMaterial({
                 color: "#000",
                 roughness: 20
@@ -120,10 +123,10 @@ function initPreview(accessor, container) {
             time++;
 
             // move the light
-            light.position.x = 200; //Math.sin(time * 0.01) * 200;
 
-            mesh.rotation.x += 0.001;
-            mesh.rotation.y += 0.01;
+
+            // mesh.rotation.x += 0.001;
+            // mesh.rotation.y += 0.01;
             //mesh.rotation.z += 0.001;
 
             renderer.clear();
@@ -144,7 +147,9 @@ function initPreview(accessor, container) {
 
         this.getMesh = function () {
             return mesh;
-        }
+        };
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
 //--------------
 //     return new THREE.Mesh(new THREE.CubeGeometry(64, 64, 1), new THREE.MeshStandardMaterial({

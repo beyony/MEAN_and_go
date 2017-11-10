@@ -1,5 +1,7 @@
 meanApp.controller("objectEditController2", ['$scope', '$http', '$window', 'sharedService', 'Objects', 'ObjectDetails', function ($scope, $http, $window, sharedService, Objects, ObjectDetails) {
 
+    console.log("IN THE CONTROLLER2!!");
+
     var cube;
 
     sharedService.setProgressStep(2, 3);
@@ -18,7 +20,7 @@ meanApp.controller("objectEditController2", ['$scope', '$http', '$window', 'shar
 
 
     // Check if object reference exists, if not provide preview
-    if (sharedService.currentObject._id) {
+    if (sharedService.currentObject) {
         ObjectDetails.getForObject(sharedService.currentObject._id)
             .success(function (data) {
                 threeAction(data);
@@ -31,11 +33,16 @@ meanApp.controller("objectEditController2", ['$scope', '$http', '$window', 'shar
 
     function threeAction(objectDetails) {
 
+        console.log("threeAction!!!" + (objectDetails ?  "with data" : "without data"));
+        console.log(objectDetails);
+
         cube = initPreview('canvas','CanvasHere');
 
-        cube.scale.x = objectDetails ? objectDetails.sizeX : 1;
-        cube.scale.y = objectDetails ? objectDetails.sizeY : 1;
-        cube.scale.z = objectDetails ? objectDetails.sizeZ : 1;
+
+
+        cube.scale.x = objectDetails ? objectDetails.sizeX : 10;
+        cube.scale.y = objectDetails ? objectDetails.sizeY : 10;
+        cube.scale.z = objectDetails ? objectDetails.sizeZ : 10;
 
         function updateCube() {
             cube.scale.x = Math.max($scope.panel.scaleX, 0.1);
@@ -51,6 +58,7 @@ meanApp.controller("objectEditController2", ['$scope', '$http', '$window', 'shar
 
         $scope.$watch('panel', function (newValue, oldValue) {
             updateCube();
+
         }, true);
     }
 
