@@ -21,8 +21,12 @@ meanApp.controller("objectEditController2", ['$scope', '$http', '$window', 'shar
 
     // Check if object reference exists, if not provide preview
     if (sharedService.currentObject) {
+        console.log("OBJECT DETAILS GO!");
+        console.log(sharedService);
         ObjectDetails.getForObject(sharedService.currentObject._id)
             .success(function (data) {
+                console.log("OBJECT DETAILS LOADED!");
+                console.log(data);
                 threeAction(data);
             });
     }
@@ -40,9 +44,9 @@ meanApp.controller("objectEditController2", ['$scope', '$http', '$window', 'shar
 
 
 
-        cube.scale.x = objectDetails ? objectDetails.sizeX : 10;
-        cube.scale.y = objectDetails ? objectDetails.sizeY : 10;
-        cube.scale.z = objectDetails ? objectDetails.sizeZ : 10;
+        cube.scale.x = objectDetails ? objectDetails.sizeX || 10 : 10;
+        cube.scale.y = objectDetails ? objectDetails.sizeY || 10 : 10;
+        cube.scale.z = objectDetails ? objectDetails.sizeZ || 10 : 10;
 
         function updateCube() {
             cube.scale.x = Math.max($scope.panel.scaleX, 0.1);

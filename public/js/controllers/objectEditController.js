@@ -10,6 +10,8 @@ meanApp.controller("objectEditController", ['$scope', '$http', '$window', 'share
         Objects.create($scope.formData)
             .success(function (objects) {
                 sharedService.currentObject = objects[objects.length - 1];
+                console.log("HIER DAS NEUE currentOBJECT!");
+                console.log(sharedService.currentObject);
                 $window.location.href = '#objectEdit2';
             });
     };

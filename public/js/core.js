@@ -42,7 +42,6 @@ meanApp.factory('ObjectDetails', ['$http', function ($http) {
 // shared service for progress bar in nav region
 meanApp.factory('sharedService', function ($rootScope) {
 
-    console.log("sharedService instantiated!");
 
     var sharedService = {};
 
@@ -105,8 +104,7 @@ meanApp.config(function ($routeProvider) {
         .when('/objectEdit3', {
             templateUrl: "pages/objectEdit3.html",
             controller: 'objectEditController3'
-        }).when('/collapse1', {
-    });
+        });
 });
 
 //angular.module('scotchTodo', ['todoController', 'todoService']);
